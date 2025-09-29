@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #32444a;
+  /*color: #ffffff;*/
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.title {
+  font-size: 5rem;
+  margin-top: 0;
+  transition: font-size 0.3s ease; /* smooth transition */
+}
+
+.title:hover {
+  font-size: 6rem;
+  margin-top: 0;
+}
+
+.text {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.loop {
+  margin-top: 0px;
+}
+
+.title-scroll-text {
+  color: rgb(54, 204, 154);
+}
