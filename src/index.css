@@ -14,14 +14,10 @@ code {
 }
 
 .title {
-  font-size: 5rem;
-  margin-top: 0;
+  font-size: 4rem;
+  margin-top: 50px;
+  margin-bottom: 0;
   transition: font-size 0.3s ease; /* smooth transition */
-}
-
-.title:hover {
-  font-size: 6rem;
-  margin-top: 0;
 }
 
 .text {
@@ -29,6 +25,7 @@ code {
   font-size: 2.5rem;
   margin-left: 50px;
   margin-right: 50px;
+  text-align: center;
 }
 
 .loop {
@@ -38,3 +35,21 @@ code {
 .title-scroll-text {
   color: rgb(54, 204, 154);
 }
+
+.header-sub-scroll-text {
+  color: rgb(186, 243, 224);
+}
+
+.pfp-gallary-overlay {
+  background-color: #ffffff66;
+  padding: 15px;
+  border-radius: 15px;
+} 
+
+.card-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+

@@ -1,15 +1,18 @@
 .dock-outer {
-  margin: 0 0.5rem;
-  display: flex;
-  max-width: 100%;
-  align-items: center;
-}
-
-.dock-panel {
-  position: absolute;
-  bottom: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;  /* keep items pinned to bottom */
+  height: 256px;          /* enough room for magnification */
+  z-index: 999;
+}
+
+
+.dock-panel {
+  position: relative;
   display: flex;
   align-items: flex-end;
   width: fit-content;
@@ -17,7 +20,9 @@
   border-radius: 1rem;
   background-color: #21383f;
   padding: 0 0.5rem 0.5rem;
+  pointer-events: auto;
 }
+
 
 .dock-item {
   position: relative;
