@@ -1,16 +1,22 @@
-title: "NotNekodev Website"
-discord: "Personal website :3"
-baseurl: ""
-url: "https://notnekodev.github.io"
+title: "NotNekodev"
+description: "Personal website"
 
 author:
-  name: "Nekodev"
+  name: "NotNekodev"
 
-remote_theme: just-the-docs/just-the-docs
-  
-heading_anchors: true
-enable_copy_code_button: true
-nav_enabled: true
-search_enabled: true
+remote_theme: "jekyll/minima@0f2a803"
 
-color_scheme: dark
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+minima:
+  skin: dark
+
+minima:
+  social_links:
+    - title: "Me on GitHub"
+      icon: github
+      url: "https://github.com/NotNekodev"
+
+url: "https://notnekodev.github.io"
