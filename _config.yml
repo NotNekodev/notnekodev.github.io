@@ -4,7 +4,7 @@ description: "Personal website"
 author:
   name: "NotNekodev"
 
-remote_theme: "jekyll/minima@0f2a803"
+remote_theme: "jekyll/minima"
 
 plugins:
   - jekyll-feed
@@ -12,8 +12,6 @@ plugins:
 
 minima:
   skin: dark
-
-minima:
   social_links:
     - title: "Me on GitHub"
       icon: github
