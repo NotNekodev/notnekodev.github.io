@@ -1,14 +1,17 @@
 title: "NotNekodev Website"
+discord: "Personal website :3"
+
 author:
   name: "Nekodev"
 
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
 
-remote_theme: jekyll/minima
+remote_theme: just-the-docs/just-the-docs
 
-minima:
-  skin: dark
-  nav_pages:
-    - about
+just_the_docs:
+  color_scheme: dark
+
+url: "https://notnekodev.github.io/"
+
+search_enabled: true
