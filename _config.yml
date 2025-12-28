@@ -12,6 +12,8 @@ plugins:
 
 minima:
   skin: dark
+  nav_pages:
+    - blog
   social_links:
     - title: "Me on GitHub"
       icon: github
