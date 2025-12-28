@@ -23,8 +23,3 @@ My programmign journey started in late 2019, when the Covid Pandemic started, it
 with HTML / CSS and Javascript. After that I learned Java, since I quite recently found out about Minecraft Modding. Well and after that I decided to learn C and Assembly
 because I found the theory of creating my own Operating System quite fun. And the thing that got me intereted in OSDev was the 
 ["Building an OS" series by Nanobyte](https://www.youtube.com/playlist?list=PLFjM7v6KGMpiH2G-kT781ByCNC_0pKpPN) which got the ball rolling.
-
-## What to check out
-You can check out the following pages:
-### [Projects](projects.md)
-### [My Blog](/blog)
