@@ -58,27 +58,21 @@ body {
 }
 
 .icon-tooltip {
-	position: absolute;
-	left: 100%;
+	position: fixed;
+	left: 0;
 	top: 0;
-	margin-left: 10px;
-
+	margin-left: 0;
 	background: #ffffe1;
 	color: #000;
 	border: 1px solid #000;
 	padding: 6px 8px;
-
 	font-size: 0.85rem;
 	font-family: 'MS Sans Serif', 'Arial', sans-serif;
 	box-shadow: 2px 2px 0 #000;
-
 	white-space: nowrap;
 	z-index: 100;
 	display: none;
-}
-
-.icon:hover .icon-tooltip {
-	display: block;
+	pointer-events: none;
 }
 
 .icon.selected {

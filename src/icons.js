@@ -50,6 +50,43 @@ export function makeIconsDraggable() {
 		icon.style.height = iconSize + 'px';
 		icon.style.position = 'absolute';
 
+		const tooltip = icon.querySelector('.icon-tooltip');
+		if (tooltip) {
+			function updateTooltipPosition(e) {
+				let x = e.clientX + 12;
+				let y = e.clientY + 12;
+
+				const maxX = window.innerWidth - tooltip.offsetWidth - 4;
+				const maxY = window.innerHeight - tooltip.offsetHeight - 4;
+
+				if (x > maxX) x = maxX;
+				if (y > maxY) y = maxY;
+				if (x < 0) x = 0;
+				if (y < 0) y = 0;
+
+				tooltip.style.left = x + 'px';
+				tooltip.style.top = y + 'px';
+			}
+
+			icon.addEventListener('mouseenter', e => {
+				tooltip.style.display = 'block';
+				updateTooltipPosition(e);
+			});
+
+			icon.addEventListener('mousemove', e => {
+				tooltip.style.display = 'block';
+				updateTooltipPosition(e);
+			});
+
+			icon.addEventListener('mouseleave', () => {
+				tooltip.style.display = 'none';
+			});
+
+			icon.addEventListener('mousedown', () => {
+				tooltip.style.display = 'none';
+			});
+		}
+
 		icon.addEventListener('click', () => {
 			icons.forEach(i => i.classList.remove('selected'));
 			icon.classList.add('selected');
