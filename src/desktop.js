@@ -29,10 +29,55 @@ export function initDesktop() {
 
     startBtn.onclick = () => alert('Start menu placeholder');
 
+    // Taskbar clock (Europe/Berlin, 24-hour format)
+    const clockContainer = document.getElementById('taskbar-clock');
+    const clockTimeEl = document.getElementById('clock-time');
+    const clockDateEl = document.getElementById('clock-date');
+    if (clockTimeEl && clockDateEl) {
+        const timeFormatter = new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+            timeZone: 'Europe/Berlin',
+        });
+
+        const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+            weekday: 'short',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            timeZone: 'Europe/Berlin',
+        });
+
+        function updateTaskbarClock() {
+            const now = new Date();
+            clockTimeEl.textContent = timeFormatter.format(now);
+            clockDateEl.textContent = dateFormatter.format(now);
+        }
+
+        updateTaskbarClock();
+        setInterval(updateTaskbarClock, 1000);
+    }
+    if (clockContainer) {
+        clockContainer.title = 'Time for me – Europe/Berlin (24-hour)';
+        clockContainer.style.cursor = 'pointer';
+        clockContainer.addEventListener('click', () => {
+            const win = createWindow('clock', 50, 50);
+            addTaskbarButton(win);
+        });
+    }
+
     function addTaskbarButton(win) {
         if (!win) return;
+
+        // Avoid duplicate taskbar buttons for the same window type
+        const existingBtn = taskbar.querySelector(`.taskbar-window-btn[data-type="${win.dataset.type}"]`);
+        if (existingBtn) return;
+
         const btn = document.createElement('button');
         btn.className = 'taskbar-window-btn';
+        btn.dataset.type = win.dataset.type;
         btn.textContent = win.dataset.type;
         taskbar.appendChild(btn);
 
