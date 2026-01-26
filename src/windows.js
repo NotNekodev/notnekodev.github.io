@@ -28,6 +28,14 @@ export function getOpenWindows() {
 	return openWindows;
 }
 
+function capitalizeFirstLetter(str) {
+    if (!str || typeof str !== "string") {
+        return str;
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 export function createWindow(type, left, top, width, height, visible = true, gradient = null) {
 	if (typeof type !== 'string') type = String(type);
 
@@ -60,7 +68,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 
 	win.innerHTML = `
     <div class="window-header">
-	      ${type}<button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
+	      ${capitalizeFirstLetter(type)}<button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
     </div>
     <div class="window-content">Loading...</div>
   `;

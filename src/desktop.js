@@ -60,7 +60,7 @@ export function initDesktop() {
         setInterval(updateTaskbarClock, 1000);
     }
     if (clockContainer) {
-        clockContainer.title = 'Time for me – Europe/Berlin (24-hour)';
+        clockContainer.title = 'Time for me - Europe/Berlin (24-hour)';
         clockContainer.style.cursor = 'pointer';
         clockContainer.addEventListener('click', () => {
             const win = createWindow('clock', 50, 50);
