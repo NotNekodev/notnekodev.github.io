@@ -15,8 +15,14 @@ const WINDOW_SIZES = {
 	game: { width: 480, height: 250 },
 };
 
-// Keep a runtime array for z-index
 const openWindows = [];
+let topZ = 100;
+
+function bringToFront(win) {
+	if (!win) return;
+	topZ += 1;
+	win.style.zIndex = String(topZ);
+}
 
 export function getOpenWindows() {
 	return openWindows;
@@ -32,7 +38,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 	const existing = openWindows.find(w => w.dataset.type === type);
 	if (existing) {
 		existing.style.display = 'block';
-		existing.style.zIndex = Date.now();
+		bringToFront(existing);
 		return existing;
 	}
 
@@ -51,7 +57,6 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 	win.style.width = width + 'px';
 	win.style.height = height + 'px';
 	win.style.display = visible ? 'block' : 'none';
-	win.style.zIndex = Date.now();
 
 	win.innerHTML = `
     <div class="window-header">
@@ -62,11 +67,13 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 
 	windowsContainer.appendChild(win);
 	openWindows.push(win);
+	bringToFront(win);
 
 	const header = win.querySelector('.window-header');
 	const content = win.querySelector('.window-content');
 
-	// Apply gradient
+	win.addEventListener('mousedown', () => bringToFront(win));
+
 	const state = loadDesktopState();
 	header.style.background = gradient ?? state.defaultGradient;
 

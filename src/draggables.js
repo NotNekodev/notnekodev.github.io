@@ -11,7 +11,6 @@ export function makeDraggable(el, onDragEnd = null, container = document.body) {
         const offsetY = e.clientY - elRect.top;
 
         el.style.position = 'absolute';
-        el.style.zIndex = Date.now();
         document.body.style.userSelect = 'none';
 
         function onMouseMove(e) {
