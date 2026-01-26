@@ -57,28 +57,62 @@ export function initMediaPlayer(container) {
         reader.readAsArrayBuffer(file);
     }
 
+    function readAudioTags(file) {
+    clearCoverArt();
+
+    if (!file.type.startsWith('audio/')) return;
+
+    window.jsmediatags.read(file, {
+        onSuccess: tag => {
+            const tags = tag.tags;
+
+            const title = tags.title || file.name;
+            const artist = tags.artist || 'Unknown Artist';
+
+            document.getElementById('media-title').textContent = title;
+            document.getElementById('media-artist').textContent = artist;
+
+            if (tags.picture) {
+                const { data, format } = tags.picture;
+                const byteArray = new Uint8Array(data);
+                const blob = new Blob([byteArray], { type: format });
+                const url = URL.createObjectURL(blob);
+
+                coverImg.src = url;
+                coverArt.style.display = 'block';
+            }
+        },
+        onError: () => {
+            document.getElementById('media-title').textContent = file.name;
+            document.getElementById('media-artist').textContent = 'Unknown Artist';
+        }
+    });
+}
+
+
     function loadFile(file) {
-        if (!file) return;
+    if (!file) return;
 
-        if (currentObjectUrl) {
-            URL.revokeObjectURL(currentObjectUrl);
-        }
-
-        currentObjectUrl = URL.createObjectURL(file);
-        video.src = currentObjectUrl;
-        video.currentTime = 0;
-
-        clearCoverArt();
-
-        if (file.type.startsWith('audio/')) {
-            loadCoverArt(file);
-            setStatus(`Playing audio: ${file.name}`);
-        } else {
-            setStatus(`Playing video: ${file.name}`);
-        }
-
-        video.play().catch(() => {});
+    if (currentObjectUrl) {
+        URL.revokeObjectURL(currentObjectUrl);
     }
+
+    currentObjectUrl = URL.createObjectURL(file);
+    video.src = currentObjectUrl;
+    video.currentTime = 0;
+
+    clearCoverArt();
+
+    if (file.type.startsWith('audio/')) {
+        readAudioTags(file);
+        setStatus(`Playing audio`);
+    } else {
+        setStatus(`Playing video`);
+    }
+
+    video.play().catch(() => {});
+}
+
 
     openBtn.addEventListener('click', () => fileInput.click());
 
