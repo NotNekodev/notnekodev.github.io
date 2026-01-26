@@ -1,0 +1,46 @@
+<div id="clock-window">
+    <div id="clock-face">
+        <div id="hour-hand" class="hand"></div>
+        <div id="minute-hand" class="hand"></div>
+        <div id="second-hand" class="hand"></div>
+    </div>
+</div>
+
+<style>
+    #clock-face {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border: 5px solid #333;
+        border-radius: 50%;
+        margin: auto;
+    }
+
+    .hand {
+        position: absolute;
+        width: 50%;
+        height: 2px;
+        background: #000;
+        top: 50%;
+        left: 50%;
+        transform-origin: 0% 50%;
+    }
+
+    #hour-hand {
+        height: 4px;
+        background: #000;
+        width: 40%;
+    }
+
+    #minute-hand {
+        height: 3px;
+        background: #555;
+        width: 50%;
+    }
+
+    #second-hand {
+        height: 2px;
+        background: red;
+        width: 50%;
+    }
+</style>

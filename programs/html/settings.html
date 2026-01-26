@@ -1,0 +1,33 @@
+<h2>Desktop Settings</h2>
+
+<div style="margin-bottom:10px;">
+    <label for="wallpaper-select"><b>Wallpaper:</b></label>
+    <select id="wallpaper-select">
+        <option value="assets/bg.png">Teal 95</option>
+        <option value="assets/bg1.png">Set in Stone</option>
+        <option value="assets/bg2.png">Millennium</option>
+    </select>
+    <div id="wallpaper-preview"
+        style="width:150px; height:80px; margin-top:5px; border:2px solid #888; display:flex; justify-content:center; align-items:center;">
+    </div>
+    <button id="apply-wallpaper">Apply Wallpaper</button>
+</div>
+
+<div style="margin-top:20px;">
+    <label><b>Window Title Gradient:</b></label><br>
+    <label for="gradient-select">Presets:</label>
+    <select id="gradient-select">
+        <option value="linear-gradient(90deg, #2563eb 0%, #60a5fa 100%)">Blue</option>
+        <option value="linear-gradient(45deg, #f59e0b 0%, #ef4444 100%)">Orange-Red</option>
+        <option value="linear-gradient(135deg, #10b981 0%, #3b82f6 100%)">Green-Blue</option>
+        <option value="custom">Custom</option>
+    </select>
+    <div id="gradient-preview" style="width:150px; height:30px; margin-top:5px; border:2px solid #888;"></div>
+    <br>
+    <label>Custom Gradient:</label><br>
+    <input type="color" id="grad-color1" value="#2563eb">
+    <input type="color" id="grad-color2" value="#60a5fa">
+    <label for="grad-angle">Angle:</label>
+    <input type="number" id="grad-angle" value="90" min="0" max="360"><br>
+    <button id="apply-gradient">Apply Gradient</button>
+</div>
