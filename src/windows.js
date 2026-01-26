@@ -58,7 +58,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 
 	const win = document.createElement('div');
 	win.className = 'window';
-	win.dataset.type = type;
+	win.dataset.type = capitalizeFirstLetter(type);
 	win.style.position = 'absolute';
 	win.style.left = left + 'px';
 	win.style.top = top + 'px';
