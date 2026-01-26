@@ -1,4 +1,4 @@
-import { createWindow } from './windows.js';
+import { createWindow, getWindowIcon } from './windows.js';
 import { makeIconsDraggable } from './icons.js';
 import { loadDesktopState } from './state.js';
 
@@ -78,7 +78,12 @@ export function initDesktop() {
         const btn = document.createElement('button');
         btn.className = 'taskbar-window-btn';
         btn.dataset.type = win.dataset.type;
-        btn.textContent = win.dataset.type;
+
+        const title = win.dataset.type || '';
+        const iconSrc = getWindowIcon(title);
+        btn.innerHTML = iconSrc
+            ? `<img class="taskbar-icon" src="${iconSrc}" alt="${title} icon"><span>${title}</span>`
+            : `<span>${title}</span>`;
         taskbar.appendChild(btn);
 
         btn.onclick = () => {

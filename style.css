@@ -131,6 +131,18 @@ body {
 	letter-spacing: 0.5px;
 }
 
+.window-title-area {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.window-icon {
+	width: 16px;
+	height: 16px;
+	image-rendering: pixelated;
+}
+
 .window-close {
 	background: #C0C0C0;
 	color: #000;
@@ -246,6 +258,13 @@ body {
 	height: 24px;
 	display: flex;
 	align-items: center;
+}
+
+.taskbar-window-btn .taskbar-icon {
+	width: 16px;
+	height: 16px;
+	margin-right: 4px;
+	image-rendering: pixelated;
 }
 
 .taskbar-window-btn.active {

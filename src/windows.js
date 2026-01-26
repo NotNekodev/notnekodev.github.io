@@ -18,6 +18,15 @@ const WINDOW_SIZES = {
 const openWindows = [];
 let topZ = 100;
 
+const WINDOW_ICONS = {
+	about: 'assets/icons/aboutme.png',
+	projects: 'assets/icons/projects.png',
+	contact: 'assets/icons/contact.png',
+	settings: 'assets/icons/settings.png',
+	clock: 'assets/icons/clock.png',
+	game: 'assets/icons/game.png',
+};
+
 function bringToFront(win) {
 	if (!win) return;
 	topZ += 1;
@@ -26,6 +35,12 @@ function bringToFront(win) {
 
 export function getOpenWindows() {
 	return openWindows;
+}
+
+export function getWindowIcon(type) {
+	if (!type) return '';
+	const key = String(type).toLowerCase();
+	return WINDOW_ICONS[key] || '';
 }
 
 function capitalizeFirstLetter(str) {
@@ -66,9 +81,16 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 	win.style.height = height + 'px';
 	win.style.display = visible ? 'block' : 'none';
 
+	const titleText = capitalizeFirstLetter(type);
+	const iconSrc = getWindowIcon(type);
+	const iconHtml = iconSrc
+		? `<img class="window-icon" src="${iconSrc}" alt="${titleText} icon">`
+		: '';
+
 	win.innerHTML = `
     <div class="window-header">
-	      ${capitalizeFirstLetter(type)}<button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
+	  <div class="window-title-area">${iconHtml}<span class="window-title-text">${titleText}</span></div>
+	  <button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
     </div>
     <div class="window-content">Loading...</div>
   `;

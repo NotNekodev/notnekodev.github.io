@@ -6,6 +6,9 @@ export function makeDraggable(el, onDragEnd = null, container = document.body) {
 
         const elRect = el.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
+        const headerRect = header.getBoundingClientRect();
+        const headerOffsetTop = headerRect.top - elRect.top;
+        const headerHeight = headerRect.height;
 
         const offsetX = e.clientX - elRect.left;
         const offsetY = e.clientY - elRect.top;
@@ -15,11 +18,18 @@ export function makeDraggable(el, onDragEnd = null, container = document.body) {
         document.body.style.userSelect = 'none';
 
         function onMouseMove(e) {
-            let x = e.clientX - containerRect.left - offsetX;
+            const x = e.clientX - containerRect.left - offsetX;
             let y = e.clientY - containerRect.top - offsetY;
 
-            x = Math.max(0, Math.min(container.clientWidth - elRect.width, x));
-            y = Math.max(0, Math.min(container.clientHeight - elRect.height, y));
+            const taskbar = document.getElementById('taskbar');
+            if (taskbar) {
+                const taskbarRect = taskbar.getBoundingClientRect();
+                const headerTopInContainer = y + headerOffsetTop;
+                const maxHeaderTop = taskbarRect.top - containerRect.top - headerHeight;
+                if (headerTopInContainer > maxHeaderTop) {
+                    y = maxHeaderTop - headerOffsetTop;
+                }
+            }
 
             el.style.left = x + 'px';
             el.style.top = y + 'px';
