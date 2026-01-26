@@ -72,10 +72,10 @@ export function initSettings(containerDiv) {
         const gradient = updatePreview();
         state.defaultGradient = gradient;
 
-        // Apply Gradient
+        // Apply Gradient to 98.css title bars
         const windows = getOpenWindows();
         windows.forEach(win => {
-            const header = win.querySelector('.window-header');
+            const header = win.querySelector('.title-bar');
             if (header) header.style.background = gradient;
         });
 

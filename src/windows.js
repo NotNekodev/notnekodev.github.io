@@ -4,6 +4,7 @@ import { initSettings } from '../programs/settings.js';
 import { initClock } from '../programs/clock.js';
 import { initGame } from '../programs/game.js';
 import { initSince } from '../programs/about.js';
+import { initMediaPlayer } from '../programs/media.js';
 
 const DEFAULT_SIZE = { width: 400, height: 300 };
 const WINDOW_SIZES = {
@@ -13,6 +14,7 @@ const WINDOW_SIZES = {
 	settings: { width: 300, height: 600 },
 	clock: { width: 250, height: 280 },
 	game: { width: 480, height: 250 },
+	media: { width: 640, height: 480 },
 };
 
 const openWindows = [];
@@ -25,6 +27,7 @@ const WINDOW_ICONS = {
 	settings: 'assets/icons/settings.png',
 	clock: 'assets/icons/clock.png',
 	game: 'assets/icons/game.png',
+	media: 'assets/icons/media.png',
 };
 
 function bringToFront(win) {
@@ -73,7 +76,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 
 	const win = document.createElement('div');
 	win.className = 'window';
-	win.dataset.type = capitalizeFirstLetter(type);
+	win.dataset.type = type;
 	win.style.position = 'absolute';
 	win.style.left = left + 'px';
 	win.style.top = top + 'px';
@@ -88,19 +91,21 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 		: '';
 
 	win.innerHTML = `
-    <div class="window-header">
-	  <div class="window-title-area">${iconHtml}<span class="window-title-text">${titleText}</span></div>
-	  <button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
-    </div>
-    <div class="window-content">Loading...</div>
-  `;
+		<div class="title-bar">
+			<div class="title-bar-text">${titleText}</div>
+			<div class="title-bar-controls">
+				<button class="window-close" aria-label="Close"></button>
+			</div>
+		</div>
+		<div class="window-body">Loading...</div>
+	`;
 
 	windowsContainer.appendChild(win);
 	openWindows.push(win);
 	bringToFront(win);
 
-	const header = win.querySelector('.window-header');
-	const content = win.querySelector('.window-content');
+	const header = win.querySelector('.title-bar');
+	const content = win.querySelector('.window-body');
 
 	win.addEventListener('mousedown', () => bringToFront(win));
 
@@ -110,7 +115,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 	makeDraggable(win);
 
 	// draw close button
-	header.querySelector('.window-close').addEventListener('click', () => {
+	header.querySelector('.window-close').addEventListener('mouseup', () => {
 		win.remove();
 		const idx = openWindows.indexOf(win);
 		if (idx > -1) openWindows.splice(idx, 1);
@@ -126,6 +131,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 				if (type === 'clock') initClock(content);
 				if (type === 'game') initGame(content);
 				if (type === 'about') initSince(content);
+				if (type === 'media') initMediaPlayer(content);
 			});
 		})
 		.catch(err => content.innerHTML = `<div style="color:red">${err}</div>`);

@@ -79,8 +79,9 @@ export function initDesktop() {
         btn.className = 'taskbar-window-btn';
         btn.dataset.type = win.dataset.type;
 
-        const title = win.dataset.type || '';
-        const iconSrc = getWindowIcon(title);
+        const type = win.dataset.type || '';
+        const title = type.charAt(0).toUpperCase() + type.slice(1);
+        const iconSrc = getWindowIcon(type);
         btn.innerHTML = iconSrc
             ? `<img class="taskbar-icon" src="${iconSrc}" alt="${title} icon"><span>${title}</span>`
             : `<span>${title}</span>`;

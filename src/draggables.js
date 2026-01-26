@@ -1,5 +1,5 @@
 export function makeDraggable(el, onDragEnd = null, container = document.body) {
-    const header = el.querySelector('.window-header') || el;
+    const header = el.querySelector('.title-bar') || el;
 
     header.addEventListener('mousedown', e => {
         e.preventDefault();
