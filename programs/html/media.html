@@ -1,12 +1,138 @@
+<style>
+.media-player {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.media-toolbar {
+  margin-bottom: 6px;
+}
+
+.media-display {
+  position: relative;
+  background: black;
+  flex: 1;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-display video {
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+/* Album art (audio mode) */
+.cover-art {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: black;
+  border: 2px inset #808080;
+  display: none;
+}
+
+.cover-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.media-controls button {
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  font-size: 12px;
+}
+
+.seek-container {
+  flex: 1;
+  padding: 2px 4px;
+}
+
+.seek-container input {
+  width: 100%;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Win98-style range */
+input[type="range"] {
+  appearance: none;
+  height: 6px;
+  background: silver;
+  border: 1px solid black;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px;
+  height: 14px;
+  background: silver;
+  border: 1px solid black;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 8px;
+  height: 14px;
+  background: silver;
+  border: 1px solid black;
+}
+
+.status-bar {
+  margin-top: auto;
+}
+</style>
+
 <div class="media-player">
   <div class="media-toolbar">
     <button id="media-open-btn" class="default">Open...</button>
-    <input id="media-file-input" type="file" accept="video/*" style="display:none" />
+    <input
+      id="media-file-input"
+      type="file"
+      accept="video/*,audio/*"
+      style="display:none"
+    >
   </div>
-  <div class="media-display">
-    <video id="media-video" controls></video>
+
+  <div class="media-display inset-deep">
+    <video id="media-video"></video>
+
+    <div class="cover-art" id="cover-art">
+      <img id="cover-img" alt="">
+    </div>
   </div>
-  <div class="media-hint">
-    Select a video file using "Open..." or drag & drop a video into this window.
+
+  <div class="media-controls">
+    <button id="btn-play">▶</button>
+    <button id="btn-pause">❚❚</button>
+    <button id="btn-stop">■</button>
+
+    <div class="seek-container inset">
+      <input id="seek-bar" type="range" min="0" value="0">
+    </div>
+
+    <div class="volume-container">
+      <button id="btn-mute">🔈</button>
+      <input id="volume-bar" type="range" min="0" max="1" step="0.01" value="1">
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <p class="status-bar-field" id="media-status">Ready</p>
   </div>
 </div>
