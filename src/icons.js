@@ -12,8 +12,37 @@ export function makeIconsDraggable() {
 	const iconSize = 64;
 	const maxRows = 5;
 
-	let row = 0;
-	let col = 0;
+	let autoRow = 0;
+	let autoCol = 0;
+
+	const occupiedBy = new Map();
+
+	function coordKey(col, row) {
+		return `${col},${row}`;
+	}
+
+	function placeIconAtGrid(icon, id, preferredCol, preferredRow) {
+		let col = preferredCol;
+		let row = preferredRow;
+
+		while (occupiedBy.has(coordKey(col, row))) {
+			row++;
+			if (row >= maxRows) {
+				row = 0;
+				col++;
+			}
+		}
+
+		const left = startX + col * spacingX;
+		const top = startY + row * spacingY;
+
+		icon.style.left = left + 'px';
+		icon.style.top = top + 'px';
+		iconsState[id] = { left, top };
+		icon.dataset.gridCol = String(col);
+		icon.dataset.gridRow = String(row);
+		occupiedBy.set(coordKey(col, row), icon);
+	}
 
 	icons.forEach(icon => {
 		const id = icon.dataset.window;
@@ -21,18 +50,23 @@ export function makeIconsDraggable() {
 		icon.style.height = iconSize + 'px';
 		icon.style.position = 'absolute';
 
-		// choose load or default
+		icon.addEventListener('click', () => {
+			icons.forEach(i => i.classList.remove('selected'));
+			icon.classList.add('selected');
+		});
+
 		if (iconsState[id]) {
-			icon.style.left = iconsState[id].left + 'px';
-			icon.style.top = iconsState[id].top + 'px';
+			let col = Math.round((iconsState[id].left - startX) / spacingX);
+			let row = Math.round((iconsState[id].top - startY) / spacingY);
+
+			if (col < 0) col = 0;
+			if (row < 0) row = 0;
+
+			placeIconAtGrid(icon, id, col, row);
 		} else {
-			const left = startX + col * spacingX;
-			const top = startY + row * spacingY;
-			icon.style.left = left + 'px';
-			icon.style.top = top + 'px';
-			iconsState[id] = { left, top };
-			row++;
-			if (row >= maxRows) { row = 0; col++; }
+			placeIconAtGrid(icon, id, autoCol, autoRow);
+			autoRow++;
+			if (autoRow >= maxRows) { autoRow = 0; autoCol++; }
 		}
 
 		let offsetX = 0;
@@ -46,23 +80,48 @@ export function makeIconsDraggable() {
 			document.body.style.userSelect = 'none';
 
 			function onMouseMove(e) {
-				// Move icon while dragging
 				icon.style.left = e.clientX - offsetX + 'px';
 				icon.style.top = e.clientY - offsetY + 'px';
 			}
 
 			function onMouseUp(e) {
-				// Snap to grid on place
-				let finalLeft = e.clientX - offsetX;
-				let finalTop = e.clientY - offsetY;
+				let rawLeft = e.clientX - offsetX;
+				let rawTop = e.clientY - offsetY;
 
-				finalLeft = Math.round((finalLeft - startX) / spacingX) * spacingX + startX;
-				finalTop = Math.round((finalTop - startY) / spacingY) * spacingY + startY;
+				let col = Math.round((rawLeft - startX) / spacingX);
+				let row = Math.round((rawTop - startY) / spacingY);
+
+				if (col < 0) col = 0;
+				if (row < 0) row = 0;
+
+				const prevCol = Number(icon.dataset.gridCol);
+				const prevRow = Number(icon.dataset.gridRow);
+				if (!Number.isNaN(prevCol) && !Number.isNaN(prevRow)) {
+					const prevKey = coordKey(prevCol, prevRow);
+					const existing = occupiedBy.get(prevKey);
+					if (existing === icon) {
+						occupiedBy.delete(prevKey);
+					}
+				}
+
+				while (occupiedBy.has(coordKey(col, row))) {
+					row++;
+					if (row >= maxRows) {
+						row = 0;
+						col++;
+					}
+				}
+
+				const finalLeft = startX + col * spacingX;
+				const finalTop = startY + row * spacingY;
 
 				icon.style.left = finalLeft + 'px';
 				icon.style.top = finalTop + 'px';
 
-				// Cleanup
+				icon.dataset.gridCol = String(col);
+				icon.dataset.gridRow = String(row);
+				occupiedBy.set(coordKey(col, row), icon);
+
 				iconsState[id] = { left: finalLeft, top: finalTop };
 				saveDesktopState([], iconsState);
 
