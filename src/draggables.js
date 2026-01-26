@@ -11,6 +11,7 @@ export function makeDraggable(el, onDragEnd = null, container = document.body) {
         const offsetY = e.clientY - elRect.top;
 
         el.style.position = 'absolute';
+        el.classList.add('dragging');
         document.body.style.userSelect = 'none';
 
         function onMouseMove(e) {
@@ -28,6 +29,7 @@ export function makeDraggable(el, onDragEnd = null, container = document.body) {
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
             document.body.style.userSelect = '';
+            el.classList.remove('dragging');
             if (onDragEnd) onDragEnd();
         }
 
