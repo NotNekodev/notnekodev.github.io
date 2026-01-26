@@ -60,7 +60,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 
 	win.innerHTML = `
     <div class="window-header">
-      ${type}<button class="window-close">x</button>
+	      ${type}<button class="window-close"><img src="assets/icons/close-icon.png" alt="Close"></button>
     </div>
     <div class="window-content">Loading...</div>
   `;

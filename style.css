@@ -81,8 +81,6 @@ body {
 	outline-offset: 4px;
 }
 
-
-
 .window {
 	position: absolute;
 	top: 120px;
@@ -120,21 +118,34 @@ body {
 }
 
 .window-close {
-	background: none;
-	color: #fff;
-	border: 2px solid #888;
+	background: #C0C0C0;
+	color: #000;
+	border-left: 2px solid #ededed;
+  	border-top: 2px solid #ededed;
+  	border-right: 2px solid #404040;
+  	border-bottom: 2px solid #404040;
 	border-radius: 0;
 	width: 22px;
 	height: 22px;
-	font-size: 1.1rem;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 2px 2px 0 #000;
+	box-shadow: 1px 1px 0 #000;
 	font-family: 'MS Sans Serif', 'Arial', sans-serif;
-	text-shadow: 1px 1px 0 #000;
 	outline: none;
+}
+
+.window-close:active {
+	border-style: inset;
+	border-color: #808080;
+	background: #A0A0A0;
+}
+
+.window-close img {
+	width: 12px;
+	height: 12px;
+	pointer-events: none;
 }
 
 .window-content {
