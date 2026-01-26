@@ -3,6 +3,7 @@ import { makeDraggable } from './draggables.js';
 import { initSettings } from '../programs/settings.js';
 import { initClock } from '../programs/clock.js';
 import { initGame } from '../programs/game.js';
+import { initSince } from '../programs/about.js';
 
 const DEFAULT_SIZE = { width: 400, height: 300 };
 const WINDOW_SIZES = {
@@ -87,6 +88,7 @@ export function createWindow(type, left, top, width, height, visible = true, gra
 				if (type === 'settings') initSettings(content);
 				if (type === 'clock') initClock(content);
 				if (type === 'game') initGame(content);
+				if (type === 'about') initSince(content);
 			});
 		})
 		.catch(err => content.innerHTML = `<div style="color:red">${err}</div>`);
